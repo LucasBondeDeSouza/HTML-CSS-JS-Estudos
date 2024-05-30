@@ -7,17 +7,19 @@ for (let i = 0; i < numberOfDrumButtons; i++) {
         let buttonInnerHTML = this.innerHTML
         
         makeSound(buttonInnerHTML)
+
+        buttonAnimation(buttonInnerHTML)
     })
 }
-
 
 // Detecting Keyboard Press
 document.addEventListener('keydown', function(e) {
     makeSound(e.key)
+    buttonAnimation(e.key)
 })
 
-function makeSound(key) {
 
+const makeSound = key => {
     switch (key) {
         case "w":
             let tom1 = new Audio('sounds/tom-1.mp3')
@@ -50,4 +52,14 @@ function makeSound(key) {
         default:
             console.log(buttonInnerHTML)
     }
+}
+
+
+const buttonAnimation = currentKey => {
+    let activeButton = document.querySelector(`.${currentKey}`)
+    activeButton.classList.add('pressed')
+    
+    setTimeout(() => {
+        activeButton.classList.remove('pressed')
+    }, 100)
 }
